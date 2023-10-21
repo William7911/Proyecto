@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Matrices Inversas</title>
+    <style>
+        body {
+            font-family: Arial;
+            background-image: url('https://www.xtrafondos.com/wallpapers/resized/cubos-3d-neon-3313.jpg?s=large'); 
+            background-size: cover;
+            background-repeat: no-repeat;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.8); 
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+        table {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        table td {
+            width: 33.33%; 
+            text-align: center;
+        }
+        input {
+            width: 100%;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Calculadora de Matrices Inversas</h1>
+
+        <label for="matrixType">Seleccione el tipo de matriz:</label>
+        <select id="matrixType">
+            <option value="2x2">2x2</option>
+            <option value="3x3">3x3</option>
+        </select>
+
+        <h2>Ingrese los valores de la matriz</h2>
+        <table id="matrixTable">
+            
+        </table>
+
+        <button onclick="calcularInversa()">Calcular Inversa</button>
+
+        <h2>Resultado</h2>
+        <div id="resultado"></div>
+    </div>
+
+    <script>
+        document.getElementById('matrixType').addEventListener('change', actualizarMatriz);
+
+        function actualizarMatriz() {
+            const matrixType = document.getElementById('matrixType').value;
+            const matrixTable = document.getElementById('matrixTable');
+
+            if (matrixType === '2x2') {
+                matrixTable.innerHTML = `
+                    <tr>
+                        <td><input type="number" id="a11"></td>
+                        <td><input type="number" id="a12"></td>
+                    </tr>
+                    <tr>
+                        <td><input type="number" id="a21"></td>
+                        <td><input type="number" id="a22"></td>
+                    </tr>
+                `;
+            } else if (matrixType === '3x3') {
+                matrixTable.innerHTML = `
+                    <tr>
+                        <td><input type="number" id="a11"></td>
+                        <td><input type="number" id="a12"></td>
+                        <td><input type="number" id="a13"></td>
+                    </tr>
+                    <tr>
+                        <td><input type="number" id="a21"></td>
+                        <td><input type="number" id="a22"></td>
+                        <td><input type="number" id="a23"></td>
+                    </tr>
+                    <tr>
+                        <td><input type="number" id="a31"></td>
+                        <td><input type="number" id="a32"></td>
+                        <td><input type="number" id="a33"></td>
+                    </tr>
+                `;
+            }
+        }
+
+        function calcularInversa() {
+            const matrixType = document.getElementById('matrixType').value;
+
+            if (matrixType === '2x2') {
+                calcularInversa2x2();
+            } else if (matrixType === '3x3') {
+                calcularInversa3x3();
+            }
+        }
+
+        function calcularInversa2x2() {
+            
+            const a11 = parseFloat(document.getElementById('a11').value);
+            const a12 = parseFloat(document.getElementById('a12').value);
+            const a21 = parseFloat(document.getElementById('a21').value);
+            const a22 = parseFloat(document.getElementById('a22').value);
+
+            
+            const det = a11 * a22 - a12 * a21;
+
+            if (det === 0) {
+                document.getElementById('resultado').textContent = "La matriz no tiene inversa (det=0).";
+            } else {
+                const invA11 = a22 / det;
+                const invA12 = -a12 / det;
+                const invA21 = -a21 / det;
+                const invA22 = a11 / det;
+
+                
+                const resultado = `
+                    <table>
+                        <tr>
+                            <td>${invA11.toFixed(2)}</td>
+                            <td>${invA12.toFixed(2)}</td>
+                        </tr>
+                        <tr>
+                            <td>${invA21.toFixed(2)}</td>
+                            <td>${invA22.toFixed(2)}</td>
+                        </tr>
+                    </table>
+                `;
+                document.getElementById('resultado').innerHTML = resultado;
+            }
+        }
+
+        function calcularInversa3x3() {
+            
+            const a11 = parseFloat(document.getElementById('a11').value);
+            const a12 = parseFloat(document.getElementById('a12').value);
+            const a13 = parseFloat(document.getElementById('a13').value);
+            const a21 = parseFloat(document.getElementById('a21').value);
+            const a22 = parseFloat(document.getElementById('a22').value);
+            const a23 = parseFloat(document.getElementById('a23').value);
+            const a31 = parseFloat(document.getElementById('a31').value);
+            const a32 = parseFloat(document.getElementById('a32').value);
+            const a33 = parseFloat(document.getElementById('a33').value);
+
+            
+            const det = a11 * a22 * a33 + a12 * a23 * a31 + a13 * a21 * a32 - a13 * a22 * a31 - a12 * a21 * a33 - a11 * a23 * a32;
+
+            if (det === 0) {
+                document.getElementById('resultado').textContent = "La matriz no tiene inversa (det=0).";
+            } else {
+                const invA11 = (a22 * a33 - a23 * a32) / det;
+                const invA12 = (a13 * a32 - a12 * a33) / det;
+                const invA13 = (a12 * a23 - a13 * a22) / det;
+                const invA21 = (a23 * a31 - a21 * a33) / det;
+                const invA22 = (a11 * a33 - a13 * a31) / det;
+                const invA23 = (a13 * a21 - a11 * a23) / det;
+                const invA31 = (a21 * a32 - a22 * a31) / det;
+                const invA32 = (a12 * a31 - a11 * a32) / det;
+                const invA33 = (a11 * a22 - a12 * a21) / det;
+
+               
+                const resultado = `
+                    <table>
+                        <tr>
+                            <td>${invA11.toFixed(2)}</td>
+                            <td>${invA12.toFixed(2)}</td>
+                            <td>${invA13.toFixed(2)}</td>
+                        </tr>
+                        <tr>
+                            <td>${invA21.toFixed(2)}</td>
+                            <td>${invA22.toFixed(2)}</td>
+                            <td>${invA23.toFixed(2)}</td>
+                        </tr>
+                        <tr>
+                            <td>${invA31.toFixed(2)}</td>
+                            <td>${invA32.toFixed(2)}</td>
+                            <td>${invA33.toFixed(2)}</td>
+                        </tr>
+                    </table>
+                `;
+                document.getElementById('resultado').innerHTML = resultado;
+            }
+        }
+
+       
+        actualizarMatriz();
+    </script>
+</body>
+</html>
