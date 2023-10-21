@@ -1,1 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Suma de Matrices</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            background-image: url(https://images.pexels.com/photos/2229894/pexels-photo-2229894.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1);
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        h1 {
+            color: white;
+        }
+        .matrices-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-gap: 10px;
+            margin: 20px auto;
+            text-align: left;
+        }
+        .matrix {
+            color: red;
+        }
+        input {
+            width: 60px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Suma de Matrices</h1>
+    <div class="matrices-container">
+        <div class="matrix matrix-a">
+            <form id="matrix1">
+                <h2>Matriz A:</h2>
+                <table>
+                    <tr>
+                        <td><input type="number" name="a00"></td>
+                        <td><input type="number" name="a01"></td>
+                        <td><input type="number" name="a02"></td>
+                    </tr>
+                    <tr>
+                        <td><input type="number" name="a10"></td>
+                        <td><input type="number" name="a11"></td>
+                        <td><input type="number" name="a12"></td>
+                    </tr>
+                    <tr>
+                        <td><input type="number" name="a20"></td>
+                        <td><input type="number" name="a21"></td>
+                        <td><input type="number" name="a22"></td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+        <div class="matrix matrix-b">
+            <form id="matrix2">
+                <h2>Matriz B:</h2>
+                <table>
+                    <tr>
+                        <td><input type="number" name="b00"></td>
+                        <td><input type="number" name="b01"></td>
+                        <td><input type="number" name="b02"></td>
+                    </tr>
+                    <tr>
+                        <td><input type="number" name="b10"></td>
+                        <td><input type="number" name="b11"></td>
+                        <td><input type="number" name="b12"></td>
+                    </tr>
+                    <tr>
+                        <td><input type="number" name="b20"></td>
+                        <td><input type="number" name="b21"></td>
+                        <td><input type="number" name="b22"></td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+        <div class="matrix matrix-result">
+            <div id="result">
+                <h2>Resultado:</h2>
+                <table id="resultadoTabla"></table>
+            </div>
+        </div>
+    </div>
 
+    <button onclick="sumarMatrices()">Sumar Matrices</button>
+
+    <script>
+        function sumarMatrices() {
+            const matrizA = [
+                [parseInt(document.forms["matrix1"]["a00"].value), parseInt(document.forms["matrix1"]["a01"].value), parseInt(document.forms["matrix1"]["a02"].value)],
+                [parseInt(document.forms["matrix1"]["a10"].value), parseInt(document.forms["matrix1"]["a11"].value), parseInt(document.forms["matrix1"]["a12"].value)],
+                [parseInt(document.forms["matrix1"]["a20"].value), parseInt(document.forms["matrix1"]["a21"].value), parseInt(document.forms["matrix1"]["a22"].value)]
+            ];
+
+            const matrizB = [
+                [parseInt(document.forms["matrix2"]["b00"].value), parseInt(document.forms["matrix2"]["b01"].value), parseInt(document.forms["matrix2"]["b02"].value)],
+                [parseInt(document.forms["matrix2"]["b10"].value), parseInt(document.forms["matrix2"]["b11"].value), parseInt(document.forms["matrix2"]["b12"].value)],
+                [parseInt(document.forms["matrix2"]["b20"].value), parseInt(document.forms["matrix2"]["b21"].value), parseInt(document.forms["matrix2"]["b22"].value)]
+            ];
+
+            const resultado = [];
+
+            for (let i = 0; i < matrizA.length; i++) {
+                resultado[i] = [];
+                for (let j = 0; j < matrizA[i].length; j++) {
+                    resultado[i][j] = matrizA[i][j] + matrizB[i][j];
+                }
+            }
+
+            const resultadoTabla = document.getElementById("resultadoTabla");
+            resultadoTabla.innerHTML = "";
+
+            for (let i = 0; i < resultado.length; i++) {
+                const fila = document.createElement("tr");
+                for (let j = 0; j < resultado[i].length; j++) {
+                    const celda = document.createElement("td");
+                    celda.innerText = resultado[i][j];
+                    fila.appendChild(celda);
+                }
+                resultadoTabla.appendChild(fila);
+            }
+        }
+    </script>
+</body>
+</html>
