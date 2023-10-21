@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Matriz Transpuesta</title>
+    
+</head>
+<body>
+   
+    <style> 
+.hola1{
+    
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    
+    background-color: transparent;
+    
+width: 960px; ;
+padding: 250px;
+}
+.hola2{
+  margin-top: -200px;
+    font-size: 50px;
+    background-position: center center;
+    background-color: transparent;
+    
+width: 250px; ;
+padding: 40px;
+}
+body{
+
+    background-image:url(https://th.bing.com/th/id/R.1e9f176ec0803f7f8b92f8e6a20d9f52?rik=cNaEqsrkOPHmAA&pid=ImgRaw&r=0) ;
+background-repeat: no-repeat;
+}
+
+    </style>
+    <div class="hola1">
+
+    <div class="hola2">
+</h2>  Matriz Transpuesta</h2>
+</div>
+    Filas:    <input type="number" id="filas" min="2" max="5"><br>
+    Columnas: <input type="number" id="columnas" min="2" max="5"><br>
+
+    <button onclick="crearMatriz()">Crear Matriz</button>
+
+    <div id="matriz"></div>
+
+    <button onclick="calcularTranspuesta()">Calcular Transpuesta</button>
+
+    <div id="transpuesta"></div>
+    
+<script>   
+function crearMatriz() {
+    var filas = document.getElementById('filas').value;
+    var columnas = document.getElementById('columnas').value;
+    var matriz = document.getElementById('matriz');
+    matriz.innerHTML = '';
+
+    for(var i=0; i<filas; i++) {
+        for(var j=0; j<columnas; j++) {
+            matriz.innerHTML += '<input type="number" id="valor_'+i+'_'+j+'">';
+        }
+        matriz.innerHTML += '<br>';
+    }
+}
+
+function calcularTranspuesta() {
+    var filas = document.getElementById('filas').value;
+    var columnas = document.getElementById('columnas').value;
+    var transpuesta = document.getElementById('transpuesta');
+    transpuesta.innerHTML = '';
+
+    for(var i=0; i<columnas; i++) {
+        for(var j=0; j<filas; j++) {
+            var valor = document.getElementById('valor_'+j+'_'+i).value;
+            transpuesta.innerHTML += valor + ' ';
+        }
+        transpuesta.innerHTML += '<br>';
+    }
+}
+</script>
+</div>
+</body>
+</html>
